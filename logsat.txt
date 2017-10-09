@@ -1,0 +1,113 @@
+Day 1: I made an object that orbits the earth, even gave it a fancy formula so that when its distance increases by 2, its speed is slowed by 4. Required some nifty math which I am always happy to use. It makes me feel like high school was good for something.
+
+Day 2: Making stuff clickable and controllable individually.
+
+Day 3: Figured out how to spawn new satellites, just need to put them in random spots (or ideally have them actually be launched). 
+
+Day 4: New satellites are launched into space now instead ofjust appearing. 
+
+Day 5: Did a small amount of work on the research sat. But Im too tired today.
+
+Day 6: Added gameplay. It is now playable, albeit not for longer than 22 seconds. Probably gonna have to universalize stuff researchLevels and researchDone since other sats will have stats like 'levels' and 'done' too, and the only difference is what the sat does with it, and this will make work on the hud tons easier. Got quite a bunch done today, Im starting to get back in that zone. Now I need to not fall out of it again. 
+
+Day 7: Continued work on level 1, although it has no tutorial boxes. I also started work on color overlays to see status of sats. Still need to add a failstate.
+
+Day 8: Started working on destruction code. Achieved nothing. Fell asleep.
+
+Day 9: Finished that destruction code. Still need to add explosions but you can lose points now! 
+
+Day 10: I put this aside. Now I'm back. Fixing some bugs to refamiliarize myself with my code. Also added crashing and drifting.
+
+Day 11: Better implementation of SatFactory & layermasks
+
+
+
+Todo: Introduce a satellite that needs to be taken back to earth!
+Todo1: Fuel overlay
+Todo2: That should be it for level 1. Advance to level 2: Space travel
+Todo3: UI where Earth is a button.
+
+
+
+
+
+
+Levels:
+
+DEBRIS=-1, NONE, RESEARCH, TRANSPORT, SURVEILLANCE, WEATHER, OBSERVATION, NAVIGATION, COMMUNICATIONS, RECOVERY, TETHER, SPACESTATION, TELESCOPE, WEAPON, GARBAGE, POWERSUPPLY, EVACUATION
+
+For radio transmissions, send rays to earth (maybe specific spots). If it hits another satellite = transmission failed. This stimulates keeping sats close to earth, which may not work for some types. 
+
+DEBRIS = not a satellite, so no controls at all.
+NONE = [no controls besides the standard movement controls.]
+RESEARCH = [keep it alive until it has finished its research.] Some satellites have multiple levels of research, each yielding reward points.
+TRANSPORT = Make sure it reaches its destination without being destroyed. Destinations can be: Earth, other satellites, outer space
+SURVEILLANCE = Keep it over a certain part of the earth for a certain time so it can take pictures. Some of these need to reenter earth's orbit safely if they lack a transmitter. (gameplay wise, it works the same as research, but only works over certain parts of earth.)
+WEATHER = Keep it over earth. The more of earth is covered, the more points are accumulated.
+OBSERVATION = Same as weather. Basically long-term research satellites.
+NAVIGATION = These work only if the entire earth is covered at all time. Points decrease if it isn't.
+COMMUNICATIONS = Same as Observation (interesting gameplay yo)
+RECOVERY = These can be used to get small debris out of the way or back to earth, which may yield a point depending on whether it prevents people from destroying stuff on purpose.
+TETHER = These can be used to get satellites in different orbit at less cost or something, IDK i need to figure something out.
+SPACESTATION = Needs to be built, but massive point accumulation once its finished. Basically a big research satellite.
+TELESCOPE = Gathers points by observing certain part of the sky, as long as its view isnt obstructed.
+WEAPON = Move it over certain parts of the earth. Fire! Points if target is hit.
+GARBAGE = Just move these out of the way. Need a reason to clutter up outer space a bit. 
+POWERSUPPLY = Move it over a certain part of the earth. Activate it. Point for each time unit it does its work.
+EVACUATION = Transport, but special. 
+
+
+
+
+HUD:
+Display: launchstatus, fuel, type, typeData
+Buttons: activate ability, move
+
+
+Tutorial points:
+1) Sats can be clicked on and controlled
+2) Sats speed differs depending on distance
+
+
+
+
+Level 1) RESEARCH
+Research satellites by the USSR and later US. These satellites have no special features, they just collect data and then either burn up, land safely, or go derelict. The only controls the player needs to do is to keep them in orbit long enough to collect data, then deploy the parachutes if needed. This is a tutorial section, really.
+==Succesfully finish X research satellites to advance.
+
+Level 2) TRANSPORT
+Satellites carrying humans. These stay in orbit for very short, and must land safely back on earth. Alternatively, some spacecraft need to be sent away from earth, towards the moon. They'll return eventually for landing on earth though. research satellites will continue to be used.
+
+Level 3) SURVEILLANCE
+These need to be sent over specific parts of the earth so they can take pictures for the military. If they don't have a transmitter, safe landing is needed. Eventually radio transmitters become more common however. Transport and Research still takes place
+
+level 4) WEATHER + OBSERVATION
+Put these in geostationary orbit, they are for non-military purposes.. Transport is decreasing, research satellites are still going strong, but will decrease soon.
+
+level 5) GPS + COMMUNICATIONS
+Hope you like getting a shitton of satellites sent to you, because the GPS network consists of about 10 satellites. Earth must be covered at all times. Manned missions are non-existent.
+
+level 6) RECOVERY + TETHER
+These are sent out to help you clean up any mess you made, since older satellites start dying, breaking, and running out of fuel. These might come in useful. 
+
+level 7) SPACESTATION
+A large space station built for research and housing people for extended time periods. Building and maintaining it causes a massive increase in transport vessels. Try not to get people killed.
+
+level 8) TELESCOPE
+These need a clear view of outer space. Really there's nothing to these, you just gotta make sure it doesn't crash into anything and its view isn't obstructed so much. 
+
+<game switches from the past to the future here>
+
+level 9) WEAPON
+Orbital lasers, tungsten rods. What's not to like? Make sure they're aimed properly though.
+
+level 10) GARBAGE
+The amount of nuclear waste on earth has become so large, they decided to send it into space, leaving you to deal with the mess. Along with that, more spacestations are built, you know, tourism and stuff. More weapons are built as well. Earth's gonna be fucked soon.
+
+level 11) POWERSUPPLY
+Wireless transmitted solar powered from space to earth. These satellites need to be aimed and will potentially roast anything unprotected that enters the transmission beam, including manned spacecraft.
+
+level 12) EVACUATION
+Earth's gone to shit. Time for mankind to leave. A flotilla of spaceships will need to be escorted through the countless space debris and derelict satellites though, on their way to space nomadism. Try not to make them crash and burn. 
+
+
