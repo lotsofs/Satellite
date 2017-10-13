@@ -59,6 +59,9 @@ public class GameManager : MonoBehaviour {
                         satellite = hit.transform.GetComponent<Satellite>();
 						selectedSomething = true;
                     }
+					else if (hit.transform.tag == "PlanetaryButton") {
+						Debug.Log("User clicked the planet");
+					}
                     else {                                          // Clicked on something that isn't selectable
                         selectedSomething = false;
                     }

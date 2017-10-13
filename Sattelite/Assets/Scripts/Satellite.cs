@@ -91,27 +91,31 @@ public class Satellite : MonoBehaviour {
             ColorOverlay();
             launchStatus = launchStatuses.Waiting;
         }
-        if (launchStatus == launchStatuses.Waiting) {
+        else if (launchStatus == launchStatuses.Waiting) {
             // If rocket is waiting on ground, have it rotate with the earth. 
             transform.RotateAround(Vector3.zero, Vector3.forward, Time.deltaTime);
         }
         else if (launchStatus == launchStatuses.Launching) {
-            // If rocket is launching, it goes up.
-            Launch();
-            if (orbitalDistance >= startingOrbit) {
+			transform.position = Vector3.MoveTowards(transform.position, planetToOrbit.transform.position, -20 * Time.deltaTime);
+			if (orbitalDistance >= startingOrbit) {
                 transform.position = Vector3.MoveTowards(transform.position, planetToOrbit.transform.position, orbitalDistance - startingOrbit); // Compensate for overshot launches on low FPS
                 launchStatus = launchStatuses.Orbiting;
                 ColorOverlay();
             }
         }
-        // A rocket in orbit will orbit. 
         else if (launchStatus == launchStatuses.Orbiting) {
 			if (orbitalDistance > 225) {
 				DriftIntoSpace();
 			}
 			Orbit();
         }
-		// A falling rocket will crash into earth.
+		else if (launchStatus == launchStatuses.Landing) {
+			if (orbitalDistance < 15) {
+				Destroy(this.gameObject);
+			}
+			downwardSpeed = 0.01f;
+			transform.position = Vector3.MoveTowards(transform.position, planetToOrbit.transform.position, 10 * Time.deltaTime);
+		}
 		else if (launchStatus == launchStatuses.Falling) {
 			if (orbitalDistance < 15) {
 				Destroy(this.gameObject);
@@ -119,7 +123,6 @@ public class Satellite : MonoBehaviour {
 			downwardSpeed = 0.1f;
 			Orbit();
 		}
-		// A drifting rocket will go into outer space.
 		else if (launchStatus == launchStatuses.Drifting) {
 			if (orbitalDistance > 666) {
 				Destroy(this.gameObject);
@@ -131,10 +134,6 @@ public class Satellite : MonoBehaviour {
 
     public void LiftOff() {
         launchStatus = launchStatuses.Launching;
-    }
-
-    void Launch() {
-        transform.position = Vector3.MoveTowards(transform.position, planetToOrbit.transform.position, -20 * Time.deltaTime);
     }
 
     void Orbit() {
@@ -167,9 +166,13 @@ public class Satellite : MonoBehaviour {
 		}
 		if (launchStatus != launchStatuses.Orbiting) {
 			GetComponentInChildren<Renderer>().material.color = Color.white;
+			return; // no coloring needed if the sat isn't in orbit
 		}
 		if (GameManager.activeFilter == filters.Work) {
-            if (workFinished) {
+			if (derelict) {
+				GetComponentInChildren<Renderer>().material.color = Color.magenta;
+			}
+			else if (workFinished) {
                 GetComponentInChildren<Renderer>().material.color = Color.green;
             }
             else if (workActive) {
@@ -184,17 +187,29 @@ public class Satellite : MonoBehaviour {
         }
     }
 
-    // ========================================= DAMAGE CODE =========================================== //
-
-    void OnTriggerEnter(Collider col) {
-        if (col.gameObject.tag == "Satellite") {
-            StartCoroutine(col.gameObject.GetComponent<Satellite>().ApplyDamage(health, mass));
-        }
-        else if (col.gameObject.tag == "Planet" && (int)launchStatus >= 3) {
-			CrashIntoEarth();
-		}
+	public virtual void Landing() {
+		launchStatus = launchStatuses.Landing;
+		ColorOverlay();
+		gameManager.GetComponent<GameManager>().DeselectObject();
 	}
 
+
+	// ========================================= DAMAGE CODE =========================================== //
+
+	void OnTriggerEnter(Collider col) {
+		if (col.gameObject.tag == "Satellite") {
+			StartCoroutine(col.gameObject.GetComponent<Satellite>().ApplyDamage(health, mass));
+		}
+		else if (col.gameObject.tag == "Planet" && (int)launchStatus >= 3) {
+			Debug.Log("Something happened");
+			if (!radioTransmitter) {
+				Landing();
+			}
+			else {
+				CrashIntoEarth();
+			}
+		}
+	}
 
 
     // gotta use a coroutine for this otherwise only one of the satellites will be damaged

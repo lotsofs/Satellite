@@ -38,7 +38,10 @@ public class HeadsUpDisplay : MonoBehaviour {
             else if (gameManager.satellite.launchStatus == Satellite.launchStatuses.Launching) {
                 mainButtonText.text = null;
             }
-            else {
+			else if (gameManager.satellite.derelict == true) {
+				mainButtonText.text = "<Derelict>";
+			}
+			else {
                 mainButtonText.text = "Toggle Research";
             }
 

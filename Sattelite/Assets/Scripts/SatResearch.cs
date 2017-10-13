@@ -63,6 +63,14 @@ public class SatResearch : Satellite {
 		
 	}
 
+	public override void Landing() {
+		if (researchDone == 0) {
+			derelict = true;
+		}
+		for (int i = researchDone; i > -1; i--) {
+			AwardPoint();
+		}
+	}
     
     public void AwardPoint() {
         GameManager.UpdateScore((int)satTypes.Research);    // give a point for research which will factor into the final score or advances the game.

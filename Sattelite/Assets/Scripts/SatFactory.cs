@@ -67,7 +67,7 @@ public class SatFactory : MonoBehaviour {
 	}*/
 
     // launch a sat with specific properties, and return it in case it needs even more specific stuff done to it.
-    public Satellite LaunchResearchSpecific(int resQ, int resA, factions fac, float orbS, float fue, float mas, float hea, bool rad, bool sol, bool shi) {
+    public SatResearch LaunchResearchSpecific(int resQ, int resA, factions fac, float orbS, float fue, float mas, float hea, bool rad, bool sol, bool shi) {
         GameManager.activeSatellites[(int)satTypes.Research]++;
         spawnPick = selectSpawn(fac);                               // Pick a spawnpoint (launchpad)
         // instantiate satellite, put it in the correct spot, then give it all its variables.

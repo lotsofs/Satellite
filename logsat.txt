@@ -20,13 +20,17 @@ Day 10: I put this aside. Now I'm back. Fixing some bugs to refamiliarize myself
 
 Day 11: Better implementation of SatFactory & layermasks
 
+Day 12: I think I made a sat which can succesfully return to earth. Don't remember if I tested it. Also started messing around some with the earth is a button concept, but I need to work it out on paper before I continue working on it.
 
 
-Todo: Introduce a satellite that needs to be taken back to earth!
+
+Todo: Test the return satellites
 Todo1: Fuel overlay
 Todo2: That should be it for level 1. Advance to level 2: Space travel
 Todo3: UI where Earth is a button.
+Todo4: Double spawn prevention
 
+Bugs: Objects drifting into earth's atmosphere on their own cause an object deselect.
 
 
 

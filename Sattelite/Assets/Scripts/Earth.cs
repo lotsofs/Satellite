@@ -3,11 +3,11 @@ using System.Collections;
 
 public class Earth : MonoBehaviour {
 
-	// Use this for initialization
-
+	
+	int rotationSpeed = 1;			// I hardcoded this shit into other things. Be careful when changing.
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Rotate(Vector3.down * Time.deltaTime);
+        transform.Rotate(Vector3.down * Time.deltaTime * rotationSpeed);
     }
 }
