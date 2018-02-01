@@ -48,7 +48,8 @@ public class Satellite : MonoBehaviour {
     public bool solarPowered = false;   // replenishes fuel over time if true.
     public bool heatShield = false; // If present, heat shields will let this thing land on earth properly, and possibly protect it against space weaponry.
     public float orbitalDecay = 0f; // the rate at which the orbit slowly decreases.
-    public float maxOrbit = 200f;   // how far the satellite can go from earth before gravity loses its pull and the object drifts off into space
+    public float maxOrbit = 200f;   // how far the satellite can go from earth before gravity loses its pull and the object drifts off into space 
+							// ----------> unused, hardcoded, fix this
 
 
     // factions fac, float orbS, float fue, float mas, float hea, bool rad, bool sol, bool shi
@@ -68,7 +69,7 @@ public class Satellite : MonoBehaviour {
 
     public virtual void Start() {
         planetToOrbit = GameObject.Find("Planet");
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();	// Should make this static
     }
 
     public void Initialize(factions fac, float orbS, float fue, float mas, float hea, bool rad, bool sol, bool shi) {

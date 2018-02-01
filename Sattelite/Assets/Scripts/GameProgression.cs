@@ -32,7 +32,7 @@ public class GameProgression : MonoBehaviour {
 		else if (GameManager.subScore[(int)satTypes.Research] == 0 && level1Progress == 0) {
 			level1Progress++;    //1   
 								 // launch another sat and show the player that a larger orbit means a slower satellite.
-								 // explain that distorted signals is a thing. 
+								 // explain that distorted signals is a thing. --> not actually a thing yet
 			satFactory.LaunchResearchSpecific(20, 3, factions.USSR, 100, 0, 1, 10, true, false, false);
 			GameManager.subScore[(int)satTypes.Research] = 1;
 		}
@@ -87,7 +87,7 @@ public class GameProgression : MonoBehaviour {
             satFactory.LaunchResearchSpecific(40, 1, factions.USA, Random.Range(50, 100), 30, 2, 10, true, false, false);
         }
 		else if (level1Progress == 4 && (specialSatResearch.derelict == true || (int)specialSatResearch.launchStatus >= 5 || specialSatResearch == null)) {
-			// The one satellite integral to this level has gone derelict. Launch a new one.
+			// The one satellite integral to this sublevel has gone derelict. Launch a new one.
 			specialSatResearch = satFactory.LaunchResearchSpecific(20, 1, factions.USA, 50, 25, 2, 10, false, false, true);
 		}
 
